@@ -1,16 +1,9 @@
 package com.barbati.scheduledtask.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.SoftDelete;
-import org.hibernate.annotations.SoftDeleteType;
-import org.hibernate.annotations.UpdateTimestamp;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.*;
 import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
@@ -25,15 +18,18 @@ public class ScheduledTask
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "task_id", nullable = false)
     private Long taskId;
 
+    @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
 
     @Column(columnDefinition = "TASK")
     private String description;
 
+    @NotBlank
     @Column(nullable = false, length = 100)
     private String cron;
 
@@ -45,8 +41,9 @@ public class ScheduledTask
     @Column(name = "request_body", columnDefinition = "JSON")
     private Map<String, Object> requestBody;
 
+    @NotNull
     @Column(nullable = false)
-    private boolean internal;
+    private Boolean internal;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -126,12 +123,12 @@ public class ScheduledTask
         this.requestBody = requestBody;
     }
 
-    public boolean isInternal()
+    public Boolean getInternal()
     {
         return internal;
     }
 
-    public void setInternal(boolean internal)
+    public void setInternal(Boolean internal)
     {
         this.internal = internal;
     }

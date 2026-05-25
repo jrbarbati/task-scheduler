@@ -2,6 +2,7 @@ package com.barbati.scheduledtask.service;
 
 import com.barbati.scheduledtask.model.ScheduledTask;
 import com.barbati.scheduledtask.repository.ScheduledTaskRepository;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,10 +23,13 @@ class ScheduledTaskServiceTest
     @Mock
     private ScheduledTaskRepository mockScheduledTaskRepository;
 
+    @Mock
+    private Validator mockValidator;
+
     @BeforeEach
     void setUp()
     {
-        scheduledTaskService = spy(new ScheduledTaskService(mockScheduledTaskRepository));
+        scheduledTaskService = spy(new ScheduledTaskService(mockScheduledTaskRepository, mockValidator));
     }
 
     @Test
